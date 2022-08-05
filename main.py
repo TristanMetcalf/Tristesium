@@ -16,7 +16,7 @@ class Tristesium:
         self._config = configparser.ConfigParser()
         self._config.read("config.ini")
         self._tracked_plcs = self._config.get("PLC", "Tracked_plcs").split()
-        self._tracked_tags = self._config.get("PLC", "PLCtags")
+        self._tracked_tags = self._config.get("PLC", "PLCtags").split()
 
         self._plex_api = PlexAPI(self._config.get("Plex","test"), self._config.get("Plex","user"), self._config.get("Plex","passwd"))
         self._rockwell = Rockwell(self._tracked_plcs, self._tracked_tags)

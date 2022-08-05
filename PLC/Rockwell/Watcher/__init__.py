@@ -10,6 +10,7 @@ log = get_logger(__name__)
 class rockwellWatcher:
 
     def __init__(self, PLCIP:str, rockwellTag:str):
+
         self._PLCIP = PLCIP
         self._rockwellTag = rockwellTag
 
@@ -28,7 +29,7 @@ class rockwellWatcher:
                         producer.addEvent(self,self._PLCIP, tagValue)
 
                     await asyncio.sleep(1)
-                    
+
                     if tagValue is None:
                         print(f"{self._PLCIP} tag doesnt exist")
                         return 0

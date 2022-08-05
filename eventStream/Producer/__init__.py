@@ -1,27 +1,37 @@
-import pika
-import sys
+from math import prod
+import configparser
+import datetime
+import re
+import json
+from kafka import KafkaProducer
+from kafka.errors import KafkaError
+
 
 
 from util import get_logger
 
 log = get_logger(__name__)
+config = configparser.ConfigParser()
+config.read("config.ini")
+kafka_server = config.get("Kafka","server").split()
 
 class producer:
     def __init__(self,tag):
+        self._config.read("config.ini")
 
         self._rockwellTag = tag
 
 
 
     def addEvent(self,IP,tagValue):
-        connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='localhost'))
-        channel = connection.channel()
-        channel.queue_declare(queue=self._rockwellTag, durable=True)
-        print(self._rockwellTag)
+        print(kafka_server)
+        producer = KafkaProducer(bootstrap_servers=kafka_server)
+        producer = KafkaProducer(value_serializer=lambda m: json.dumps(m).encode('ascii'))
+        producer.send(re.sub(r'\W+', '', self._rockwellTag), {'timestamp':str(datetime.datetime.now()),'PLCIP':str(IP),'tagValue':str(tagValue)})
+        print(re.sub(r'\W+', '', self._rockwellTag))
+        producer.flush()
 
-        message ="{" + f'"IP":"{IP}","Value":{tagValue}' + "}"
-        channel.basic_publish(exchange='', routing_key=self._rockwellTag, body=message,properties=pika.BasicProperties(delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE))
-        print(" [x] Sent %r" % message)
-        connection.close()
+   
+
+        
        
