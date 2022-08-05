@@ -3,3 +3,4 @@ pycomm3==1.2.6
 python-snap7==1.1
 requests
 suds
+kafka-python
