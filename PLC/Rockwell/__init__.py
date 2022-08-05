@@ -13,8 +13,9 @@ class Rockwell:
         self._rockwellTags = rockwellTags
         self._rockwellWatcher = rockwellWatcher(self._PLCIPs, self._rockwellTags)
 
+
     async def start(self):
-        log.info("starting Rockwell Watcher")
+
         for self._plcip in self._PLCIPs:
             self._rockwellWatcher = rockwellWatcher(self._plcip, "Label_Print")
 

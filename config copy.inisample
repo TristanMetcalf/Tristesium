@@ -1,0 +1,10 @@
+[Plex]
+Test = plex datasource web address for test
+Live = plex datasource web address for live
+user = datasource user
+passwd = datasource pass
+
+[PLC]
+testTracked_plcs=x.x.x.x x.x.x.x x.x.x.x
+Tracked_plcs=x.x.x.x x.x.x.x x.x.x.x
+PLCtags =tagname tagname (does not currently support multiple tags)

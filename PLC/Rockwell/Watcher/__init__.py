@@ -1,6 +1,7 @@
 from array import array
 import asyncio
 from pycomm3 import LogixDriver
+from eventStream.Producer import producer
 
 from util import get_logger
 
@@ -24,8 +25,10 @@ class rockwellWatcher:
                 while 1:
                     if tagValue != plc.read(self._rockwellTag)[1]:
                         tagValue = plc.read(self._rockwellTag)[1]
-                        print(self._PLCIP, tagValue)
+                        producer.addEvent(self,self._PLCIP, tagValue)
+
                     await asyncio.sleep(1)
+                    
                     if tagValue is None:
                         print(f"{self._PLCIP} tag doesnt exist")
                         return 0
