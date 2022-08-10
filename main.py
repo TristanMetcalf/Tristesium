@@ -24,7 +24,7 @@ class Tristesium:
     async def start(self):
         log.info("starting Tristesium")
         asyncio.ensure_future(self._plex_api.start())
-        print(asyncio.ensure_future(self._rockwell.start()))
+        asyncio.ensure_future(self._rockwell.start())
 
 
 

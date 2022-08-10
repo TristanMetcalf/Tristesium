@@ -14,15 +14,13 @@ class Rockwell:
 
         self._PLCIPs = PLCIPs
         self._rockwellTags = rockwellTags
-        self._rockwellWatcher = rockwellWatcher(self._PLCIPs, self._rockwellTags)
 
 
     async def start(self):
-
-        for self._plcip in self._PLCIPs:
-            for self._rockwellTag in self._rockwellTags:
-                self._rockwellWatcher = rockwellWatcher(self._plcip, self._rockwellTag)
-                asyncio.create_task(self._rockwellWatcher.start())
+        log.info(self._PLCIPs)
+        for plcip in self._PLCIPs:
+            rockwellWatchers = rockwellWatcher(plcip, self._rockwellTags)
+            asyncio.ensure_future(rockwellWatchers.start())
  
 
 
